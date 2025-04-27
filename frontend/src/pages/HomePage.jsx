@@ -1,52 +1,62 @@
-import React from "react";
-import "../App.css";
-import { Link } from "react-router-dom";
-import { boxStyle, headingStyle, boxesWrapperStyle } from "./Styles";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import '../styles/HomePage.css';
 
 const HomePage = () => {
-  const containerStyle = {
-    width: "100vw",
-    height: "100vh",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "lightblue",
-    background: "linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab)",
-    backgroundSize: "400% 400%",
-    animation: "gradientBG 15s ease infinite",
-  };
+  const navigate = useNavigate();
 
   return (
-    <>
-      <style>
-        {`
-          @keyframes gradientBG {
-            0% {
-              background-position: 0% 50%;
-            }
-            50% {
-              background-position: 100% 50%;
-            }
-            100% {
-              background-position: 0% 50%;
-            }
-          }
-        `}
-        ,
-      </style>
-      <div style={containerStyle}>
-        <h1 style={headingStyle}>Welcome to the Higher Studies Portal</h1>
-        <div style={boxesWrapperStyle}>
-          <Link style={boxStyle} className="miniBox" to={"/student"}>
-            Student
-          </Link>
-          <Link style={boxStyle} className="miniBox" to={"/faculty"}>
-            Faculty
-          </Link>
-        </div>
+    <div className="home-page">
+      <div className="home-overlay">
+        <motion.div 
+          className="home-content"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h1>Higher Studies Portal</h1>
+          <p className="subtitle">Your gateway to academic excellence and future opportunities</p>
+          
+          <div className="features">
+            <div className="feature-item">
+              <span className="feature-icon">🎓</span>
+              <h3>Track Your Progress</h3>
+              <p>Monitor your academic journey and achievements</p>
+            </div>
+            <div className="feature-item">
+              <span className="feature-icon">📚</span>
+              <h3>Manage Applications</h3>
+              <p>Handle higher education applications efficiently</p>
+            </div>
+            <div className="feature-item">
+              <span className="feature-icon">📊</span>
+              <h3>View Reports</h3>
+              <p>Access detailed reports and analytics</p>
+            </div>
+          </div>
+
+          <div className="auth-buttons">
+            <motion.button 
+              className="auth-btn login-btn"
+              onClick={() => navigate('/login')}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Sign In
+            </motion.button>
+            <motion.button 
+              className="auth-btn register-btn"
+              onClick={() => navigate('/register')}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Sign Up
+            </motion.button>
+          </div>
+        </motion.div>
       </div>
-    </>
+    </div>
   );
 };
 

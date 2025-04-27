@@ -8,6 +8,8 @@ import {
   headingStyle,
   boxesWrapperStyle,
 } from "./Styles";
+import DashboardLayout from '../components/DashboardLayout';
+import '../styles/Dashboard.css';
 
 const pageVariants = {
   initial: { x: "100%", opacity: 0 },
@@ -15,33 +17,39 @@ const pageVariants = {
   exit: { x: "-100%", opacity: 0 },
 };
 
-const FacultyPage = () => {
+const FacultyPage = ({ setIsAuthenticated, setUserType }) => {
   return (
-    <>
+    <DashboardLayout 
+      userType="faculty"
+      setIsAuthenticated={setIsAuthenticated}
+      setUserType={setUserType}
+    >
       <motion.div
-        variants={pageVariants}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        transition={{ duration: 0.4, ease: "easeInOut" }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.3 }}
       >
-        <div style={containerStyle}>
-          <h1 style={headingStyle}>Select The Category To Generate Data!</h1>
-          <div style={boxesWrapperStyle}>
-            <Link
-              style={boxStyle}
-              className="miniBox"
-              to={"/heigherStudies-report"}
-            >
-              Higher Studies
-            </Link>
-            <Link style={boxStyle} className="miniBox" to={"/exam-report"}>
-              Competitive Exam
-            </Link>
+        <h1>Faculty Dashboard</h1>
+        <div className="dashboard-stats">
+          <div className="stat-card">
+            <h3>Competitive Exams</h3>
+            <p className="stat-number">45</p>
+            <p className="stat-label">Student Registrations</p>
+          </div>
+          <div className="stat-card">
+            <h3>Higher Studies</h3>
+            <p className="stat-number">25</p>
+            <p className="stat-label">Applications</p>
+          </div>
+          <div className="stat-card">
+            <h3>Total Students</h3>
+            <p className="stat-number">150</p>
+            <p className="stat-label">Active Students</p>
           </div>
         </div>
       </motion.div>
-    </>
+    </DashboardLayout>
   );
 };
 
