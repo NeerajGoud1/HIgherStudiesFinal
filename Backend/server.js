@@ -20,7 +20,7 @@ app.use(express.json());
 // MongoDB connection
 const connectDB = async () => {
   try {
-    await mongoose.connect('mongodb://127.0.0.1:27017/higher_studies_portal', {
+    await mongoose.connect('mongodb+srv://gunagantinikhil2006:Nikhil123@cluster0.hvo2rcn.mongodb.net/', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
