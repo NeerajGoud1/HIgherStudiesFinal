@@ -57,7 +57,7 @@ export default function ExamForm() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/higherStudies/storeExamData",
+        "http://localhost:5000/api/higherStudies/storeExamData",
         { ...formData }
       );
       console.log(response);

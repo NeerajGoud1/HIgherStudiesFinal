@@ -30,7 +30,6 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import CloseIcon from "@mui/icons-material/Close";
-import Container from "@mui/material/Container";
 
 const ExamReport = () => {
   const [originalData, setOriginalData] = useState([]);
@@ -47,7 +46,7 @@ const ExamReport = () => {
     try {
       setSelectedYear(year);
       const res = await axios.get(
-        `http://localhost:8080/api/higherStudies/year-wise-detail/${year}`
+        `http://localhost:5000/api/higherStudies/year-wise-detail/${year}`
       );
       setDetailedData(res.data);
       setOpenModal(true);
@@ -91,7 +90,7 @@ const ExamReport = () => {
   const fetchReport = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:8080/api/higherStudies/generate-exam-report"
+        "http://localhost:5000/api/higherStudies/generate-exam-report"
       );
       setOriginalData(res.data);
     } catch (err) {
@@ -106,9 +105,7 @@ const ExamReport = () => {
   const yearOptions = Array.from(
     new Set([...originalData.map((item) => item.passedOutYear)])
   )
-    .sort((a, b) => a - b)
     .filter((year) => {
-      // Ensure year is a valid number and within a reasonable range
       const yearNum = Number(year);
       return (
         !isNaN(yearNum) &&
@@ -125,13 +122,20 @@ const ExamReport = () => {
 
   return (
     <div style={{ padding: "2rem" }}>
-      <Typography variant="h4" gutterBottom color="maroon">
+      <Typography variant="h4" gutterBottom sx={{ color: "maroon" }}>
         Competitive Exam Report (Year-wise)
       </Typography>
 
       {/* Filters */}
-      <div style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}>
-        <FormControl sx={{ minWidth: 150 }}>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "1rem",
+          marginBottom: "1.5rem",
+        }}
+      >
+        <FormControl sx={{ minWidth: 140 }}>
           <InputLabel id="from-year-label">From Year</InputLabel>
           <Select
             labelId="from-year-label"
@@ -147,7 +151,7 @@ const ExamReport = () => {
           </Select>
         </FormControl>
 
-        <FormControl sx={{ minWidth: 150 }}>
+        <FormControl sx={{ minWidth: 140 }}>
           <InputLabel id="to-year-label">To Year</InputLabel>
           <Select
             labelId="to-year-label"
@@ -167,7 +171,7 @@ const ExamReport = () => {
           variant="contained"
           color="secondary"
           onClick={handleGenerateReport}
-          sx={{ alignSelf: "center" }}
+          sx={{ flexShrink: 0 }}
         >
           Generate Report
         </Button>
@@ -175,6 +179,14 @@ const ExamReport = () => {
 
       {show && (
         <>
+          <Button
+            variant="outlined"
+            onClick={() => window.print()}
+            sx={{ mb: 2 }}
+          >
+            Print / Save as PDF
+          </Button>
+
           <TableContainer component={Paper} sx={{ my: 4 }}>
             <Table>
               <TableHead>
@@ -186,7 +198,7 @@ const ExamReport = () => {
                     <TableCell
                       key={year}
                       onClick={() => handleYearClick(year)}
-                      style={{ cursor: "pointer", color: "blue" }}
+                      sx={{ cursor: "pointer", color: "blue" }}
                     >
                       <strong>
                         {year - 1} - {year}
@@ -240,7 +252,7 @@ const ExamReport = () => {
               <IconButton
                 aria-label="close"
                 onClick={() => setOpenModal(false)}
-                style={{ position: "absolute", right: 8, top: 8 }}
+                sx={{ position: "absolute", right: 8, top: 8 }}
               >
                 <CloseIcon />
               </IconButton>

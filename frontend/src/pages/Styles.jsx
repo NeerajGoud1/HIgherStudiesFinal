@@ -1,7 +1,7 @@
 const boxStyle = {
   width: "200px",
-  height: "200px",
-  backgroundColor: "maroon",
+  height: "120px",
+  backgroundColor: "#B82132 ",
   color: "#fff",
   fontSize: "20px",
   display: "flex",
@@ -23,7 +23,7 @@ const containerStyle = {
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
-  backgroundColor: "lightblue",
+  backgroundColor: "#F6DED8  ",
 };
 
 const headingStyle = {

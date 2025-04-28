@@ -4,54 +4,72 @@ import { Link } from "react-router-dom";
 import logo from "../assets/logo.jpg";
 import { Box } from "@mui/material";
 import { motion } from "framer-motion";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
 import {
   boxStyle,
   containerStyle,
   headingStyle,
   boxesWrapperStyle,
 } from "./Styles";
-import DashboardLayout from "../components/DashboardLayout";
-import "../styles/Dashboard.css";
 
 const pageVariants = {
   initial: { x: "100%", opacity: 0 },
   animate: { x: 0, opacity: 1 },
   exit: { x: "-100%", opacity: 0 },
 };
+const handleLogout = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("userType");
 
-const StudentPage = ({ setIsAuthenticated, setUserType }) => {
+  setIsAuthenticated(false);
+  setUserType(null);
+
+  navigate("/login", { replace: true });
+};
+
+const StudentPage = () => {
   return (
-    <DashboardLayout
-      userType="student"
-      setIsAuthenticated={setIsAuthenticated}
-      setUserType={setUserType}
+    <motion.div
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      transition={{ duration: 0.4, ease: "easeInOut" }}
     >
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -20 }}
-        transition={{ duration: 0.3 }}
-      >
-        <h1>Student Dashboard</h1>
-        <div className="dashboard-stats">
-          <div className="stat-card">
-            <h3>Competitive Exams</h3>
-            <p className="stat-number">3</p>
-            <p className="stat-label">Registered Exams</p>
+      <AppBar position="static" sx={{ backgroundColor: "#B82132 " }}>
+        <div className="Studentbtns">
+          <div>
+            <h3>VNRVJIET</h3>
           </div>
-          <div className="stat-card">
-            <h3>Higher Studies</h3>
-            <p className="stat-number">5</p>
-            <p className="stat-label">Applications</p>
-          </div>
-          <div className="stat-card">
-            <h3>Upcoming Deadlines</h3>
-            <p className="stat-number">2</p>
-            <p className="stat-label">This Week</p>
+          <div className="btngrp">
+            <div>
+              <Link className="btn" to="/" role="button">
+                Home
+              </Link>
+            </div>
+            <div>
+              <Link onClick={handleLogout} className="btn">
+                <span>Logout</span>
+              </Link>
+            </div>
           </div>
         </div>
-      </motion.div>
-    </DashboardLayout>
+      </AppBar>
+      <Box>
+        <div style={containerStyle}>
+          <h1 style={headingStyle}>Select the option to enter details!</h1>
+          <div style={boxesWrapperStyle}>
+            <Link style={boxStyle} to="/study-details" className="miniBox">
+              Higher Studies
+            </Link>
+            <Link style={boxStyle} className="miniBox" to="/exam-details">
+              Competitive Exam
+            </Link>
+          </div>
+        </div>
+      </Box>
+    </motion.div>
   );
 };
 

@@ -48,10 +48,14 @@ const HigherStudiesReport = () => {
   const isSingleYear = fromYear && toYear && fromYear === toYear;
 
   const fetchReport = async () => {
+    if (!fromYear || !toYear) {
+      alert("Please select both From and To years.");
+      return;
+    }
     try {
       const query = `?from=${fromYear}&to=${toYear}`;
       const res = await axios.get(
-        `http://localhost:8080/api/higherStudies/generate-heigherStudies-report${query}`
+        `http://localhost:5000/api/higherStudies/generate-heigherStudies-report${query}`
       );
 
       const formattedData = res.data.map((item) => ({
@@ -75,7 +79,7 @@ const HigherStudiesReport = () => {
   const fetchDetails = async (year) => {
     try {
       const res = await axios.get(
-        `http://localhost:8080/api/higherStudies/details/${year}`
+        `http://localhost:5000/api/higherStudies/details/${year}`
       );
       setDetails(res.data);
       setSelectedYear(year);
@@ -92,11 +96,19 @@ const HigherStudiesReport = () => {
       </Typography>
 
       {/* Filters */}
-      <div style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "1rem",
+          marginBottom: "1rem",
+        }}
+      >
+        {/* From Year */}
         <FormControl sx={{ minWidth: 120 }}>
-          <InputLabel id="to-year-label">From Year</InputLabel>
+          <InputLabel id="from-year-label">From Year</InputLabel>
           <Select
-            labelId="From-year-label"
+            labelId="from-year-label"
             value={fromYear}
             onChange={(e) => setFromYear(e.target.value)}
             label="From Year"
@@ -109,6 +121,7 @@ const HigherStudiesReport = () => {
           </Select>
         </FormControl>
 
+        {/* To Year */}
         <FormControl sx={{ minWidth: 120 }}>
           <InputLabel id="to-year-label">To Year</InputLabel>
           <Select
@@ -125,10 +138,11 @@ const HigherStudiesReport = () => {
           </Select>
         </FormControl>
 
+        {/* Generate Report Button */}
         <Button
           variant="contained"
-          sx={{ bgcolor: "purple" }}
-          onClick={fetchReport}
+          sx={{ bgcolor: "purple", flexShrink: 0 }}
+          onClick={() => fetchReport(fromYear, toYear)}
         >
           Generate Report
         </Button>

@@ -54,7 +54,7 @@ export default function HigherStudiesForm() {
     let res = null;
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/higherStudies/store",
+        "http://localhost:5000/api/higherStudies/store",
         { ...formData }
       );
       res = response;

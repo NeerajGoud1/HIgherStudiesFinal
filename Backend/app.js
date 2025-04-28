@@ -46,7 +46,6 @@ app.get("/api/test", (req, res) => {
 // Register route
 app.post("/api/auth/register", async (req, res) => {
   try {
-    console.log("Register request received:", req.body);
     const {
       name,
       email,
