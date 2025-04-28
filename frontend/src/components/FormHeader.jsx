@@ -2,12 +2,17 @@ import React from "react";
 import { AppBar, Toolbar } from "@mui/material";
 import logo from "../assets/logo.jpg";
 import { Link } from "react-router-dom";
+import "../App.css";
 
 export default function FormHeader() {
   return (
     <div>
       {" "}
-      <AppBar position="static" sx={{ mb: 4, backgroundColor: "white" }}>
+      <AppBar
+        position="static"
+        sx={{ mb: 4, backgroundColor: "white" }}
+        className="formStuff"
+      >
         <Toolbar>
           <img
             src={logo}
@@ -20,7 +25,12 @@ export default function FormHeader() {
             alt="VNRVJIET Logo"
           />
 
-          <Link className="backBtn" to="/student" role="button">
+          <Link
+            className="formbtn"
+            to="/student"
+            role="button"
+            style={{ color: "black" }}
+          >
             Back
           </Link>
         </Toolbar>
