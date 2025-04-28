@@ -10,8 +10,8 @@ import {
   headingStyle,
   boxesWrapperStyle,
 } from "./Styles";
-import DashboardLayout from '../components/DashboardLayout';
-import '../styles/Dashboard.css';
+import DashboardLayout from "../components/DashboardLayout";
+import "../styles/Dashboard.css";
 
 const pageVariants = {
   initial: { x: "100%", opacity: 0 },
@@ -21,7 +21,7 @@ const pageVariants = {
 
 const StudentPage = ({ setIsAuthenticated, setUserType }) => {
   return (
-    <DashboardLayout 
+    <DashboardLayout
       userType="student"
       setIsAuthenticated={setIsAuthenticated}
       setUserType={setUserType}

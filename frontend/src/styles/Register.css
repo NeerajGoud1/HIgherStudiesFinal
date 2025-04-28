@@ -1,1 +1,103 @@
- 
+.auth-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(to right, #f8c8c8, #f2af88);
+  padding: 1rem;
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 500px;
+}
+
+.auth-box {
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  color: #c62828;
+  margin-bottom: 1.5rem;
+}
+
+.user-type-toggle {
+  display: flex;
+  margin-bottom: 1.5rem;
+  background-color: #f9d7d7;
+  border-radius: 2rem;
+  overflow: hidden;
+}
+
+.toggle-btn {
+  flex: 1;
+  padding: 0.7rem;
+  background: none;
+  border: none;
+  color: #c62828;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.toggle-btn.active {
+  background-color: #c62828;
+  color: white;
+  border-radius: 2rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column; /* Stack inputs vertically by default */
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.form-group input {
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+.submit-btn {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #c62828;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.auth-link {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+/* Responsive: If more than 2 fields, arrange side-by-side on larger screens */
+form.more-than-two {
+  flex-wrap: wrap;
+}
+
+form.more-than-two .form-group {
+  flex: 1 1 calc(50% - 0.5rem);
+}
+
+/* Always make submit button full width */
+form.more-than-two .submit-btn {
+  flex: 1 1 100%;
+}

@@ -1,230 +1,117 @@
-.main-container {
-  display: flex;
-  min-height: 100vh;
-}
-
-.sidebar {
-  width: 280px;
-  background-color: #c41e3a; /* Dark red color similar to the image */
-  color: white;
-  padding: 2rem 1rem;
-}
-
-.logo {
-  padding: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  margin-bottom: 2rem;
-}
-
-.logo h2 {
-  margin: 0;
-  font-size: 1.5rem;
-}
-
-.nav-menu {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.nav-item {
-  display: flex;
-  align-items: center;
-  padding: 1rem;
-  cursor: pointer;
-  border-radius: 8px;
-  transition: background-color 0.3s ease;
-}
-
-.nav-item:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.nav-item.active {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-.nav-item .icon {
-  margin-right: 1rem;
-  font-size: 1.2rem;
-}
-
-.content {
-  flex: 1;
-  background-color: #f5f5f5;
-}
-
-.login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 2rem;
-}
-
-.login-box {
-  background-color: white;
-  padding: 2.5rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
-}
-
-.login-box h2 {
-  margin-bottom: 0.5rem;
-  color: #333;
-  font-size: 1.75rem;
-}
-
-.login-subtitle {
-  color: #666;
-  margin-bottom: 2rem;
-}
-
-.form-group {
-  margin-bottom: 1.5rem;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  color: #555;
-  font-weight: 500;
-}
-
-.form-group input {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
-}
-
-.form-group input:focus {
-  border-color: #c41e3a;
-  outline: none;
-}
-
-.login-button {
-  width: 100%;
-  padding: 0.875rem;
-  background-color: #c41e3a;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.login-button:hover {
-  background-color: #a01830;
-}
-
 .auth-page {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: linear-gradient(135deg, #f6ded8 0%, #f2b28c 100%);
   padding: 1rem;
 }
 
 .auth-container {
   width: 100%;
-  max-width: 400px;
+  max-width: 500px; /* keep original width */
 }
 
 .auth-box {
   background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem 2rem; /* reduced vertical padding */
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.auth-box:hover {
+  transform: translateY(-4px);
 }
 
 .auth-box h2 {
   text-align: center;
-  color: #333;
-  margin-bottom: 1.5rem;
-  font-size: 1.8rem;
+  color: #b82132;
+  margin-bottom: 1rem; /* reduced bottom space after heading */
+  font-size: 1.8rem; /* slightly smaller heading */
+  font-weight: bold;
 }
 
 .user-type-toggle {
   display: flex;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  gap: 0.8rem; /* slightly tighter gap */
+  margin-bottom: 1.5rem; /* reduced margin bottom */
+  background: #f6ded8;
+  padding: 0.4rem;
+  border-radius: 50px;
 }
 
 .toggle-btn {
   flex: 1;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  background: none;
-  border-radius: 6px;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 50px;
   cursor: pointer;
+  background: none;
+  font-weight: 600;
+  color: #b82132;
   transition: all 0.3s ease;
 }
 
 .toggle-btn.active {
-  background-color: #c41e3a;
+  background: linear-gradient(to right, #b82132);
   color: white;
-  border-color: #c41e3a;
+  box-shadow: 0 2px 8px rgba(184, 33, 50, 0.4);
 }
 
 .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: 1rem; /* slightly reduced spacing */
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 0.5rem;
-  color: #555;
+  margin-bottom: 0.3rem;
+  color: black;
+  font-size: 0.9rem;
 }
 
 .form-group input {
   width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  padding: 0.7rem;
+  border: 1px solid black;
+  border-radius: 8px;
   font-size: 1rem;
-}
-
-.form-group input:focus {
-  outline: none;
-  border-color: #c41e3a;
+  background: white;
+  transition: all 0.3s ease;
 }
 
 .error-message {
-  background-color: #ffebee;
-  color: #c41e3a;
-  padding: 0.75rem;
-  border-radius: 6px;
+  background: #ffe5e5;
+  color: #b82132;
+  padding: 0.6rem;
+  border-radius: 8px;
   margin-bottom: 1rem;
   text-align: center;
+  font-weight: 500;
 }
 
 .submit-btn {
   width: 100%;
-  padding: 0.875rem;
-  background-color: #c41e3a;
+  padding: 0.8rem;
+  background: linear-gradient(to right, #b82132);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.submit-btn:hover {
+  background: linear-gradient(to right, #d2665a, #f2b28c);
+  transform: scale(1.02);
 }
 
 .submit-btn:disabled {
-  background-color: #cccccc;
+  background: #ccc;
   cursor: not-allowed;
-}
-
-.submit-btn:not(:disabled):hover {
-  background-color: #a01830;
 }
 
 .auth-links {
@@ -233,12 +120,14 @@
 }
 
 .register-link {
-  color: #666;
-  margin-bottom: 1rem;
+  color: #555;
+  margin-bottom: 0.4rem;
+  font-size: 0.85rem;
 }
 
 .register-link a {
-  color: #c41e3a;
+  color: #b82132;
+  font-weight: 600;
   text-decoration: none;
 }
 
@@ -249,34 +138,35 @@
 .test-account-btn {
   background: none;
   border: none;
-  color: #666;
+  color: #777;
   text-decoration: underline;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  margin-top: 0.6rem;
 }
 
 .test-account-btn:hover {
-  background-color: #f5f5f5;
+  color: #b82132;
 }
 
 .home-link {
   display: block;
-  margin-top: 1rem;
-  text-decoration: none;
+  margin-top: 1.2rem;
 }
 
 .home-btn {
   width: 100%;
-  padding: 0.75rem;
-  background-color: #4a90e2;
-  color: white;
-  border: none;
-  border-radius: 6px;
+  padding: 0.7rem;
+  background-color: #f6ded8;
+  color: #b82132;
+  border: 1px solid #b82132;
+  border-radius: 8px;
+  font-weight: 600;
   font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .home-btn:hover {
-  background-color: #357abd;
-} 
+  background-color: #b82132;
+  color: white;
+}
