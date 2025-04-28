@@ -9,6 +9,18 @@ const examSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  branch: {
+    type: String,
+    required: true,
+  },
+  mobileNo: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    requied: true,
+  },
   passedOutYear: {
     //previous institute
     type: Number,
@@ -20,6 +32,10 @@ const examSchema = new mongoose.Schema({
   },
   registrationNo: {
     type: String,
+    required: true,
+  },
+  score: {
+    type: Number,
     required: true,
   },
 });

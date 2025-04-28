@@ -138,6 +138,14 @@ const Login = ({ setIsAuthenticated, setUserType: setGlobalUserType }) => {
             >
               Use Test Account
             </button>
+            <Link to="/" className="home-link">
+              <button 
+                className="home-btn"
+                type="button"
+              >
+                Back to Home
+              </button>
+            </Link>
           </div>
         </div>
       </div>

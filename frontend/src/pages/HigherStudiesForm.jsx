@@ -12,9 +12,13 @@ export default function HigherStudiesForm() {
   const [formData, setFormData] = useState({
     name: "",
     rollNo: "",
-    joiningInstitute: "",
-    joiningYear: "",
+    branch: "",
+    mobileNo: "",
+    email: "",
     passedOutYear: "",
+    joiningInstituteName: "",
+    yearOfAdmission: "",
+    course: "",
   });
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showUnSuccessAltert, setShowUnSuccessAltert] = useState(false);
@@ -47,12 +51,16 @@ export default function HigherStudiesForm() {
       setFormData({
         name: "",
         rollNo: "",
-        joiningInstitute: "",
-        joiningYear: "",
+        branch: "",
+        mobileNo: "",
+        email: "",
         passedOutYear: "",
+        joiningInstituteName: "",
+        yearOfAdmission: "",
+        course: "",
       });
     } catch (error) {
-      setResMsg(res.data.message);
+      setResMsg(res?.data?.message || "Error submitting form");
       setShowUnSuccessAltert(true);
       setTimeout(() => setShowUnSuccessAltert(false), 3000);
     }
@@ -64,7 +72,6 @@ export default function HigherStudiesForm() {
       <Box
         sx={{
           backgroundColor: "#fff",
-
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -89,7 +96,7 @@ export default function HigherStudiesForm() {
               }}
             >
               <Alert variant="filled" severity="success">
-                Data Submited Successfully
+                Data Submitted Successfully
               </Alert>
             </Box>
           </Slide>
@@ -165,6 +172,34 @@ export default function HigherStudiesForm() {
               required
             />
             <TextField
+              label="Branch"
+              name="branch"
+              value={formData.branch}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+              required
+            />
+            <TextField
+              label="Mobile Number"
+              name="mobileNo"
+              value={formData.mobileNo}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+              required
+            />
+            <TextField
+              label="Email"
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+              required
+            />
+            <TextField
               label="Passed Out Year"
               name="passedOutYear"
               type="number"
@@ -175,19 +210,28 @@ export default function HigherStudiesForm() {
               required
             />
             <TextField
-              label="New Institute Name"
-              name="joiningInstitute"
-              value={formData.joiningInstitute}
+              label="Joining Institute Name"
+              name="joiningInstituteName"
+              value={formData.joiningInstituteName}
               onChange={handleChange}
               fullWidth
               margin="normal"
               required
             />
             <TextField
-              label="Joining Year Of New Institute"
-              name="joiningYear"
+              label="Year of Admission"
+              name="yearOfAdmission"
               type="number"
-              value={formData.joiningYear}
+              value={formData.yearOfAdmission}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+              required
+            />
+            <TextField
+              label="Course"
+              name="course"
+              value={formData.course}
               onChange={handleChange}
               fullWidth
               margin="normal"

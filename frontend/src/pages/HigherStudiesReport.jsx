@@ -51,7 +51,7 @@ const HigherStudiesReport = () => {
     try {
       const query = `?from=${fromYear}&to=${toYear}`;
       const res = await axios.get(
-        `http://localhost:8080/api/higherStudies/generate-heigherStudies-report${query}`
+        `http://localhost:5000/api/higherStudies/generate-heigherStudies-report${query}`
       );
 
       const formattedData = res.data.map((item) => ({
@@ -75,7 +75,7 @@ const HigherStudiesReport = () => {
   const fetchDetails = async (year) => {
     try {
       const res = await axios.get(
-        `http://localhost:8080/api/higherStudies/details/${year}`
+        `http://localhost:5000/api/higherStudies/details/${year}`
       );
       setDetails(res.data);
       setSelectedYear(year);

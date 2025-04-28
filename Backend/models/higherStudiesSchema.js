@@ -5,27 +5,38 @@ const higherstudiesSchema = new Schema({
     type: String,
     required: true,
   },
-
   rollNo: {
     type: String,
     required: true,
-    unique: true,
   },
-
-  joiningInstitute: {
+  branch: {
     type: String,
     required: true,
   },
-
-  joiningYear: {
+  mobileNo: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    requied: true,
+  },
+  passedOutYear: {
+    //previous institute
+    type: Number,
+    required: true,
+  },
+  joiningInstituteName: {
+    type: String,
+    required: true,
+  },
+  yearOfAdmission: {
     //new institute joining year
     type: Number,
     required: true,
   },
-
-  passedOutYear: {
-    //previous institute
-    type: Number,
+  course: {
+    type: String,
     required: true,
   },
 });

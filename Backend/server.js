@@ -4,7 +4,7 @@ import cors from 'cors';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-
+import higherStudiesRoutes from './routes/higherStudiesRoutes.js';
 dotenv.config();
 
 const app = express();
@@ -20,7 +20,7 @@ app.use(express.json());
 // MongoDB connection
 const connectDB = async () => {
   try {
-    await mongoose.connect('mongodb+srv://gunagantinikhil2006:Nikhil123@cluster0.hvo2rcn.mongodb.net/', {
+    await mongoose.connect('mongodb+srv://neeraj:neeraj@higherstudiesfp.qfkw1bh.mongodb.net/', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -50,6 +50,7 @@ const User = mongoose.model('User', userSchema);
 app.get('/api/test', (req, res) => {
   res.json({ message: 'Server is running' });
 });
+
 
 // Register route
 app.post('/api/auth/register', async (req, res) => {
@@ -161,6 +162,7 @@ app.post('/api/create-test-account', async (req, res) => {
     res.status(500).json({ message: 'Server error creating test account' });
   }
 });
+app.use('/api/higherStudies', higherStudiesRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

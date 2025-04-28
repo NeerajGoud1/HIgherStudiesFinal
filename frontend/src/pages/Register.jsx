@@ -12,7 +12,8 @@ const Register = () => {
     confirmPassword: '',
     userType: 'student',
     college: '',
-    student_id: ''
+    student_id: '',
+    employee_id: ''
   });
   const [error, setError] = useState('');
 
@@ -137,6 +138,33 @@ const Register = () => {
                       value={formData.student_id}
                       onChange={handleChange}
                       placeholder="Enter your student ID"
+                      required
+                    />
+                  </div>
+                </>
+              )}
+
+              {formData.userType === 'faculty' && (
+                <>
+                  <div className="form-group">
+                    <label>College Name</label>
+                    <input
+                      type="text"
+                      name="college"
+                      value={formData.college}
+                      onChange={handleChange}
+                      placeholder="Enter your college name"
+                      required
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Employee ID</label>
+                    <input
+                      type="text"
+                      name="employee_id"
+                      value={formData.employee_id}
+                      onChange={handleChange}
+                      placeholder="Enter your employee ID"
                       required
                     />
                   </div>

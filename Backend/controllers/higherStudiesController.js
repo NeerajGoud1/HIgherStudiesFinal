@@ -1,29 +1,37 @@
 import { Higherstudies } from "../models/higherStudiesSchema.js";
 import httpStatus from "http-status";
 import { ExamSchema } from "../models/ExamSchema.js";
+import {
+  examSchemaValidation,
+  higherStudiesValidation,
+} from "../middlewares/schemaValidation.js";
 
 const store = async (req, res) => {
   const data = req.body;
+  console.log("got request");
+  const { error } = higherStudiesValidation.validate(data);
+  console.log(error);
 
-  if (
-    !data.name ||
-    !data.rollNo ||
-    !data.joiningInstitute ||
-    !data.joiningYear ||
-    !data.passedOutYear
-  ) {
-    return res
-      .status(400)
-      .json({ message: "Please provide all required information" });
+  if (error) {
+    return res.status(400).json({ message: error.message });
   }
 
   try {
+    let course = data.course;
+    //  console.log(data.examType, data.customExam);
+    if (data.course === "other" && data.customCourse) {
+      course = data.customCourse;
+    }
     const newData = new Higherstudies({
       name: data.name,
       rollNo: data.rollNo,
-      joiningInstitute: data.joiningInstitute,
-      joiningYear: data.joiningYear,
+      branch: data.branch,
+      mobileNo: data.mobileNo,
+      email: data.email,
       passedOutYear: data.passedOutYear,
+      joiningInstituteName: data.joiningInstituteName,
+      yearOfAdmission: data.yearOfAdmission,
+      course: course,
     });
 
     await newData.save();
@@ -44,26 +52,30 @@ const store = async (req, res) => {
 
 const storeExamData = async (req, res) => {
   const data = req.body;
+  // console.log("got request");
+  const { error } = examSchemaValidation.validate(data);
+  // console.log(error);
 
-  if (
-    !data.rollNo ||
-    !data.exam ||
-    !data.regNo ||
-    !data.passedOutYear ||
-    !data.name
-  ) {
-    return res
-      .status(400)
-      .json({ message: "Please provide all required information" });
+  if (error) {
+    return res.status(400).json({ message: error.message });
   }
-
   try {
+    let examType = data.examType;
+    // console.log(data.examType, data.customExam);
+    if (data.examType === "other" && data.customExam) {
+      examType = data.customExam;
+    }
+
     const newData = new ExamSchema({
       name: data.name,
       rollNo: data.rollNo,
-      examType: data.exam,
-      registrationNo: data.regNo,
+      branch: data.branch,
+      mobileNo: data.mobileNo,
+      email: data.email,
+      examType: examType,
+      registrationNo: data.registrationNo,
       passedOutYear: data.passedOutYear,
+      score: data.score,
     });
 
     await newData.save();

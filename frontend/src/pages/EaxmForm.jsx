@@ -15,9 +15,13 @@ export default function ExamForm() {
   const [formData, setFormData] = useState({
     name: "",
     rollNo: "",
-    exam: "",
-    regNo: "",
+    branch: "",
+    mobileNo: "",
+    email: "",
     passedOutYear: "",
+    examType: "",
+    registrationNo: "",
+    score: "",
   });
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showUnSuccessAltert, setUnShowSuccessAlert] = useState(false);
@@ -44,9 +48,13 @@ export default function ExamForm() {
         setFormData({
           name: "",
           rollNo: "",
+          branch: "",
+          mobileNo: "",
+          email: "",
           passedOutYear: "",
-          exam: "",
-          regNo: "",
+          examType: "",
+          registrationNo: "",
+          score: "",
         });
         setTimeout(() => setShowSuccessAlert(false), 3000);
       } else {
@@ -54,6 +62,7 @@ export default function ExamForm() {
         setTimeout(() => setUnShowSuccessAlert(false), 3000);
       }
     } catch (error) {
+      setResMsg(res?.data?.message || "Error submitting form");
       setUnShowSuccessAlert(true);
       setTimeout(() => setUnShowSuccessAlert(false), 3000);
     }
@@ -111,7 +120,7 @@ export default function ExamForm() {
               }}
             >
               <Alert variant="filled" severity="error">
-                Error In Submitng Data!
+                {resMsg}
               </Alert>
             </Box>
           </Slide>
@@ -165,8 +174,37 @@ export default function ExamForm() {
               required
             />
             <TextField
+              label="Branch"
+              name="branch"
+              value={formData.branch}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+              required
+            />
+            <TextField
+              label="Mobile Number"
+              name="mobileNo"
+              value={formData.mobileNo}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+              required
+            />
+            <TextField
+              label="Email"
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+              required
+            />
+            <TextField
               label="Passed Out Year"
               name="passedOutYear"
+              type="number"
               value={formData.passedOutYear}
               onChange={handleChange}
               fullWidth
@@ -180,9 +218,9 @@ export default function ExamForm() {
               <Select
                 labelId="demo-select-small-label"
                 id="demo-select-small"
-                value={formData.exam}
+                value={formData.examType}
                 label="Exam Type"
-                name="exam"
+                name="examType"
                 onChange={handleChange}
                 fullWidth
                 sx={{ height: 53 }}
@@ -199,14 +237,24 @@ export default function ExamForm() {
 
             <TextField
               label="Registration Number"
-              name="regNo"
+              name="registrationNo"
               type="text"
-              value={formData.regNo}
+              value={formData.registrationNo}
               onChange={handleChange}
               fullWidth
               margin="normal"
               required
               sx={{ mt: 3 }}
+            />
+            <TextField
+              label="Score"
+              name="score"
+              type="number"
+              value={formData.score}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+              required
             />
             <File />
             <Button
