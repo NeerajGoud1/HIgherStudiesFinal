@@ -1,4 +1,3 @@
-import { Box, Container, TextField, Typography, Button } from "@mui/material";
 import { useState } from "react";
 import axios from "axios";
 import InputLabel from "@mui/material/InputLabel";
@@ -10,6 +9,11 @@ import Alert from "@mui/material/Alert";
 import Slide from "@mui/material/Slide";
 import FormHeader from "../components/FormHeader";
 import File from "../components/File";
+import { Box } from "@mui/material";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import { Button } from "@mui/material";
 
 export default function ExamForm() {
   const [formData, setFormData] = useState({
@@ -19,28 +23,43 @@ export default function ExamForm() {
     mobileNo: "",
     email: "",
     passedOutYear: "",
-    examType: "",
+    examType: "", // Exam type (GATE, GRE, etc.)
+    customExam: "", // For custom exam if "Other" is selected
     registrationNo: "",
     score: "",
   });
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
-  const [showUnSuccessAltert, setUnShowSuccessAlert] = useState(false);
-  const [resMsg, setResMsg] = useState("");
+  const [showUnSuccessAlert, setUnShowSuccessAlert] = useState(false);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    if (name === "exam") {
+      setFormData((prev) => ({
+        ...prev,
+        examType: value,
+        customExam: value === "other" ? prev.customExam : "",
+      }));
+    } else if (name === "customExam") {
+      setFormData((prev) => ({
+        ...prev,
+        customExam: value,
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: name === "mobileNo" ? String(value) : value,
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let res = null;
     try {
       const response = await axios.post(
         "http://localhost:8080/api/higherStudies/storeExamData",
         { ...formData }
       );
-      res = response;
-
       console.log(response);
 
       if (response.status === 200 || response.status === 201) {
@@ -55,6 +74,7 @@ export default function ExamForm() {
           examType: "",
           registrationNo: "",
           score: "",
+          customExam: "",
         });
         setTimeout(() => setShowSuccessAlert(false), 3000);
       } else {
@@ -62,7 +82,6 @@ export default function ExamForm() {
         setTimeout(() => setUnShowSuccessAlert(false), 3000);
       }
     } catch (error) {
-      setResMsg(res?.data?.message || "Error submitting form");
       setUnShowSuccessAlert(true);
       setTimeout(() => setUnShowSuccessAlert(false), 3000);
     }
@@ -106,7 +125,7 @@ export default function ExamForm() {
           {/* Error Alert */}
           <Slide
             direction="down"
-            in={showUnSuccessAltert}
+            in={showUnSuccessAlert}
             mountOnEnter
             unmountOnExit
           >
@@ -120,12 +139,11 @@ export default function ExamForm() {
               }}
             >
               <Alert variant="filled" severity="error">
-                {resMsg}
+                Error In Submitting Data!
               </Alert>
             </Box>
           </Slide>
 
-          {/* Form Title */}
           <Typography
             variant="h4"
             gutterBottom
@@ -143,7 +161,6 @@ export default function ExamForm() {
             Student Competitive Exam Form
           </Typography>
 
-          {/* Form Box */}
           <Box
             component="form"
             onSubmit={handleSubmit}
@@ -192,9 +209,8 @@ export default function ExamForm() {
               required
             />
             <TextField
-              label="Email"
+              label="Email Address"
               name="email"
-              type="email"
               value={formData.email}
               onChange={handleChange}
               fullWidth
@@ -204,13 +220,13 @@ export default function ExamForm() {
             <TextField
               label="Passed Out Year"
               name="passedOutYear"
-              type="number"
               value={formData.passedOutYear}
               onChange={handleChange}
               fullWidth
               margin="normal"
               required
             />
+
             <FormControl size="small" fullWidth sx={{ mt: 2 }}>
               <InputLabel id="demo-select-small-label" sx={{ mt: 1 }}>
                 Exam Type
@@ -220,23 +236,39 @@ export default function ExamForm() {
                 id="demo-select-small"
                 value={formData.examType}
                 label="Exam Type"
-                name="examType"
+                name="exam"
                 onChange={handleChange}
                 fullWidth
                 sx={{ height: 53 }}
               >
-                <MenuItem value={"GATE"}>GATE</MenuItem>
-                <MenuItem value={"GRE"}>GRE</MenuItem>
-                <MenuItem value={"IELTS"}>IELTS</MenuItem>
-                <MenuItem value={"TOEFL"}>TOEFL</MenuItem>
-                <MenuItem value={"DUOLINGO"}>DUOLINGO</MenuItem>
-                <MenuItem value={"PTE"}>PTE</MenuItem>
-                <MenuItem value={"MAT"}>MAT</MenuItem>
+                <MenuItem value="GATE">GATE</MenuItem>
+                <MenuItem value="GRE">GRE</MenuItem>
+                <MenuItem value="IELTS">IELTS</MenuItem>
+                <MenuItem value="TOEFL">TOEFL</MenuItem>
+                <MenuItem value="DUOLINGO">DUOLINGO</MenuItem>
+                <MenuItem value="PTE">PTE</MenuItem>
+                <MenuItem value="MAT">MAT</MenuItem>
+                <MenuItem value="CAT">CAT</MenuItem>
+                <MenuItem value="other">Other</MenuItem>
               </Select>
             </FormControl>
 
+            {formData.examType === "other" && (
+              <TextField
+                label="Enter other exam type"
+                name="customExam"
+                type="text"
+                value={formData.customExam}
+                onChange={handleChange}
+                fullWidth
+                margin="normal"
+                required={formData.examType === "other"} // Only make this required when "other" is selected
+                sx={{ mt: 3 }}
+              />
+            )}
+
             <TextField
-              label="Registration Number"
+              label={`Registration Number ${formData.examType} Exam`}
               name="registrationNo"
               type="text"
               value={formData.registrationNo}
@@ -247,9 +279,8 @@ export default function ExamForm() {
               sx={{ mt: 3 }}
             />
             <TextField
-              label="Score"
+              label="Score Obtained"
               name="score"
-              type="number"
               value={formData.score}
               onChange={handleChange}
               fullWidth

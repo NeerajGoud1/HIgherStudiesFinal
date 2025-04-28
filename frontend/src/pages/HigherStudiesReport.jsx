@@ -51,7 +51,7 @@ const HigherStudiesReport = () => {
     try {
       const query = `?from=${fromYear}&to=${toYear}`;
       const res = await axios.get(
-        `http://localhost:5000/api/higherStudies/generate-heigherStudies-report${query}`
+        `http://localhost:8080/api/higherStudies/generate-heigherStudies-report${query}`
       );
 
       const formattedData = res.data.map((item) => ({
@@ -75,7 +75,7 @@ const HigherStudiesReport = () => {
   const fetchDetails = async (year) => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/higherStudies/details/${year}`
+        `http://localhost:8080/api/higherStudies/details/${year}`
       );
       setDetails(res.data);
       setSelectedYear(year);
@@ -200,9 +200,13 @@ const HigherStudiesReport = () => {
                 <TableRow>
                   <TableCell>Name</TableCell>
                   <TableCell>Roll No</TableCell>
+                  <TableCell>Branch</TableCell>
+                  <TableCell>Mobile Number</TableCell>
+                  <TableCell>Email Address</TableCell>
                   <TableCell>Passed Out Year</TableCell>
-                  <TableCell>Opted Institute</TableCell>
-                  <TableCell>Joining Year</TableCell>
+                  <TableCell>Opted Institute Name</TableCell>
+                  <TableCell>Year Of Admission</TableCell>
+                  <TableCell>Specialization</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -210,9 +214,13 @@ const HigherStudiesReport = () => {
                   <TableRow key={student.rollNo}>
                     <TableCell>{student.name}</TableCell>
                     <TableCell>{student.rollNo}</TableCell>
+                    <TableCell>{student.branch}</TableCell>
+                    <TableCell>{student.mobileNo}</TableCell>
+                    <TableCell>{student.email}</TableCell>
                     <TableCell>{student.passedOutYear}</TableCell>
-                    <TableCell>{student.joiningInstitute}</TableCell>
-                    <TableCell>{student.joiningYear}</TableCell>
+                    <TableCell>{student.joiningInstituteName}</TableCell>
+                    <TableCell>{student.yearOfAdmission}</TableCell>
+                    <TableCell>{student.course}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -225,7 +233,7 @@ const HigherStudiesReport = () => {
       <Dialog
         open={openModal}
         onClose={() => setOpenModal(false)}
-        maxWidth="md"
+        maxWidth="lg"
         fullWidth
       >
         <DialogTitle>
@@ -244,19 +252,27 @@ const HigherStudiesReport = () => {
               <TableRow>
                 <TableCell>Name</TableCell>
                 <TableCell>Roll No</TableCell>
+                <TableCell>Branch</TableCell>
+                <TableCell>Mobile Number</TableCell>
+                <TableCell>Email Address</TableCell>
                 <TableCell>Passed Out Year</TableCell>
-                <TableCell>Joining Institute</TableCell>
-                <TableCell>Joining Year</TableCell>
+                <TableCell>Opted Institute Name</TableCell>
+                <TableCell>Year Of Admission</TableCell>
+                <TableCell>Specialization</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {details.map((student) => (
                 <TableRow key={student.rollNo}>
                   <TableCell>{student.name}</TableCell>
-                  <TableCell>{student.rollNo}</TableCell>{" "}
+                  <TableCell>{student.rollNo}</TableCell>
+                  <TableCell>{student.branch}</TableCell>
+                  <TableCell>{student.mobileNo}</TableCell>
+                  <TableCell>{student.email}</TableCell>
                   <TableCell>{student.passedOutYear}</TableCell>
-                  <TableCell>{student.joiningInstitute}</TableCell>
-                  <TableCell>{student.joiningYear}</TableCell>
+                  <TableCell>{student.joiningInstituteName}</TableCell>
+                  <TableCell>{student.yearOfAdmission}</TableCell>
+                  <TableCell>{student.course}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

@@ -10,10 +10,16 @@ const app = express();
 const server = createServer(app);
 
 // CORS configuration
-app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175'],
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:5174",
+      "http://localhost:5175",
+    ],
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); //for parsing post request
@@ -27,26 +33,34 @@ const userSchema = new mongoose.Schema({
   college: String,
   student_id: String,
   employee_id: String,
-  createdAt: { type: Date, default: Date.now }
+  createdAt: { type: Date, default: Date.now },
 });
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model("User", userSchema);
 
 // Test route
-app.get('/api/test', (req, res) => {
-  res.json({ message: 'Server is running' });
+app.get("/api/test", (req, res) => {
+  res.json({ message: "Server is running" });
 });
 
 // Register route
-app.post('/api/auth/register', async (req, res) => {
+app.post("/api/auth/register", async (req, res) => {
   try {
-    console.log('Register request received:', req.body);
-    const { name, email, password, userType, college, student_id, employee_id } = req.body;
+    console.log("Register request received:", req.body);
+    const {
+      name,
+      email,
+      password,
+      userType,
+      college,
+      student_id,
+      employee_id,
+    } = req.body;
 
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ message: 'User already exists' });
+      return res.status(400).json({ message: "User already exists" });
     }
 
     // Hash password
@@ -61,89 +75,89 @@ app.post('/api/auth/register', async (req, res) => {
       userType,
       college,
       student_id,
-      employee_id
+      employee_id,
     });
 
     await user.save();
-    console.log('User registered successfully:', user.email);
+    console.log("User registered successfully:", user.email);
 
-    res.status(201).json({ message: 'User registered successfully' });
+    res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
-    console.error('Registration error:', error);
-    res.status(500).json({ message: 'Server error during registration' });
+    console.error("Registration error:", error);
+    res.status(500).json({ message: "Server error during registration" });
   }
 });
 
 // Login route with additional logging
-app.post('/api/auth/login', async (req, res) => {
-  console.log('Login request received:', req.body);
+app.post("/api/auth/login", async (req, res) => {
+  console.log("Login request received:", req.body);
   try {
     const { email, password, userType } = req.body;
 
     // Check if user exists
     const user = await User.findOne({ email });
     if (!user) {
-      console.log('User not found:', email);
-      return res.status(400).json({ message: 'Invalid credentials' });
+      console.log("User not found:", email);
+      return res.status(400).json({ message: "Invalid credentials" });
     }
 
     // Validate password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      console.log('Invalid password for user:', email);
-      return res.status(400).json({ message: 'Invalid credentials' });
+      console.log("Invalid password for user:", email);
+      return res.status(400).json({ message: "Invalid credentials" });
     }
 
     // Create JWT token
     const token = jwt.sign(
       { id: user._id, userType: user.userType },
-      'your_jwt_secret',
-      { expiresIn: '1d' }
+      "your_jwt_secret",
+      { expiresIn: "1d" }
     );
 
-    console.log('Login successful for user:', email);
+    console.log("Login successful for user:", email);
     res.json({
       token,
       userType: user.userType,
-      name: user.name
+      name: user.name,
     });
   } catch (error) {
-    console.error('Login error:', error);
-    res.status(500).json({ message: 'Server error' });
+    console.error("Login error:", error);
+    res.status(500).json({ message: "Server error" });
   }
 });
 
 // Create a test account route
-app.post('/api/create-test-account', async (req, res) => {
+app.post("/api/create-test-account", async (req, res) => {
   try {
-    const { userType = 'student' } = req.body;
-    
+    const { userType = "student" } = req.body;
+
     let testUser;
-    
-    if (userType === 'student') {
+
+    if (userType === "student") {
       testUser = {
-        name: 'Test Student',
-        email: 'test.student@example.com',
-        password: 'Test@123',
-        userType: 'student',
-        college: 'Test College',
-        student_id: 'ST12345'
+        name: "Test Student",
+        email: "test.student@example.com",
+        password: "Test@123",
+        userType: "student",
+        college: "Test College",
+        student_id: "ST12345",
       };
     } else {
       testUser = {
-        name: 'Test Faculty',
-        email: 'test.faculty@example.com',
-        password: 'Test@123',
-        userType: 'faculty',
-        college: 'Test College',
-        employee_id: 'EMP12345'
+        name: "Test Faculty",
+        email: "test.faculty@example.com",
+        password: "Test@123",
+        userType: "faculty",
+        college: "Test College",
+        employee_id: "EMP12345",
       };
     }
 
     // Check if test user already exists
     const existingUser = await User.findOne({ email: testUser.email });
     if (existingUser) {
-      return res.json({ message: 'Test account already exists' });
+      return res.json({ message: "Test account already exists" });
     }
 
     // Hash password
@@ -153,14 +167,14 @@ app.post('/api/create-test-account', async (req, res) => {
     // Create new user
     const user = new User({
       ...testUser,
-      password: hashedPassword
+      password: hashedPassword,
     });
 
     await user.save();
-    res.json({ message: 'Test account created successfully' });
+    res.json({ message: "Test account created successfully" });
   } catch (error) {
-    console.error('Error creating test account:', error);
-    res.status(500).json({ message: 'Server error creating test account' });
+    console.error("Error creating test account:", error);
+    res.status(500).json({ message: "Server error creating test account" });
   }
 });
 
