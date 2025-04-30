@@ -266,9 +266,9 @@ export default function HigherStudiesForm() {
               >
                 <MenuItem value="Mtech">MTech</MenuItem>
                 <MenuItem value="MBA">MBA</MenuItem>
-                <MenuItem value="MSC">MSS</MenuItem>
-                <MenuItem value="PHD">TOEFL</MenuItem>
-                <MenuItem value="MS">DUOLINGO</MenuItem>
+                <MenuItem value="MSC">MSC</MenuItem>
+                <MenuItem value="PHD">PHD</MenuItem>
+                <MenuItem value="MS">MS</MenuItem>
                 <MenuItem value="other">Other</MenuItem>
               </Select>
             </FormControl>
