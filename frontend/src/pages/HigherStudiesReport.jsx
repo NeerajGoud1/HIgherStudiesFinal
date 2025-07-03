@@ -80,7 +80,7 @@ const HigherStudiesReport = () => {
   const fetchDetails = async (year) => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/higherStudies/details/${year}`
+        `${ProLink}/api/higherStudies/details/${year}`
       );
       setDetails(res.data);
       setSelectedYear(year);

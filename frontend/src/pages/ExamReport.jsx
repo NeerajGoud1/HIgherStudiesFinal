@@ -91,7 +91,7 @@ const ExamReport = () => {
   const fetchReport = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/higherStudies/generate-exam-report"
+        `${ProLink}/api/higherStudies/generate-exam-report`
       );
       setOriginalData(res.data);
     } catch (err) {
