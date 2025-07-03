@@ -31,6 +31,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import { ProLink } from "../ProLink";
 
 const HigherStudiesReport = () => {
   const [reportData, setReportData] = useState([]);
@@ -55,7 +56,7 @@ const HigherStudiesReport = () => {
     try {
       const query = `?from=${fromYear}&to=${toYear}`;
       const res = await axios.get(
-        `http://localhost:5000/api/higherStudies/generate-heigherStudies-report${query}`
+        `${ProLink}/api/higherStudies/generate-heigherStudies-report${query}`
       );
 
       const formattedData = res.data.map((item) => ({

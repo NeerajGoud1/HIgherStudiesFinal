@@ -14,6 +14,7 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
+import { ProLink } from "../ProLink";
 
 export default function ExamForm() {
   const [formData, setFormData] = useState({
@@ -57,7 +58,7 @@ export default function ExamForm() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/higherStudies/storeExamData",
+        `${ProLink}/api/higherStudies/storeExamData`,
         { ...formData }
       );
       console.log(response);

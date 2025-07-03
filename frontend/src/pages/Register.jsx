@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import "../styles/Register.css";
+import { ProLink } from "../ProLink";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ const Register = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/register", {
+      const response = await fetch(`${ProLink}/api/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

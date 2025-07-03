@@ -30,6 +30,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import CloseIcon from "@mui/icons-material/Close";
+import { ProLink } from "../ProLink";
 
 const ExamReport = () => {
   const [originalData, setOriginalData] = useState([]);
@@ -46,7 +47,7 @@ const ExamReport = () => {
     try {
       setSelectedYear(year);
       const res = await axios.get(
-        `http://localhost:5000/api/higherStudies/year-wise-detail/${year}`
+        `${ProLink}/api/higherStudies/year-wise-detail/${year}`
       );
       setDetailedData(res.data);
       setOpenModal(true);

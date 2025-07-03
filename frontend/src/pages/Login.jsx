@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../styles/Login.css";
+import { ProLink } from "../ProLink";
 
 const Login = ({ setIsAuthenticated, setUserType: setGlobalUserType }) => {
   const [userType, setUserType] = useState("student");
@@ -27,7 +28,7 @@ const Login = ({ setIsAuthenticated, setUserType: setGlobalUserType }) => {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
+      const response = await fetch(`${ProLink}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

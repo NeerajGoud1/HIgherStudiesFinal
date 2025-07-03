@@ -11,6 +11,9 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+
+import { ProLink } from "../ProLink";
+
 export default function HigherStudiesForm() {
   const [formData, setFormData] = useState({
     name: "",
@@ -53,10 +56,9 @@ export default function HigherStudiesForm() {
     e.preventDefault();
     let res = null;
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/higherStudies/store",
-        { ...formData }
-      );
+      const response = await axios.post(`${ProLink}/api/higherStudies/store`, {
+        ...formData,
+      });
       res = response;
       console.log(response);
 
