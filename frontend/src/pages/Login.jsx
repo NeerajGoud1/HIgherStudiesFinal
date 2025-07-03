@@ -33,7 +33,7 @@ const Login = ({ setIsAuthenticated, setUserType: setGlobalUserType }) => {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        credentials: "include",
+
         body: JSON.stringify({
           email: formData.email,
           password: formData.password,
@@ -91,6 +91,14 @@ const Login = ({ setIsAuthenticated, setUserType: setGlobalUserType }) => {
             >
               Faculty
             </button>
+          </div>
+          <div>
+            <pre>
+              Use Demo Account : Email - demo@gmail.com <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;password
+              - demo
+            </pre>
           </div>
 
           {error && <div className="error-message">{error}</div>}

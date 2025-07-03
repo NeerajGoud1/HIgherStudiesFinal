@@ -82,6 +82,7 @@ export default function ExamForm() {
         setTimeout(() => setUnShowSuccessAlert(false), 3000);
       }
     } catch (error) {
+      console.log(error.message);
       setUnShowSuccessAlert(true);
       setTimeout(() => setUnShowSuccessAlert(false), 3000);
     }

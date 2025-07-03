@@ -51,6 +51,7 @@ const store = async (req, res) => {
 };
 
 const storeExamData = async (req, res) => {
+  console.log("req received");
   const data = req.body;
   // console.log("got request");
   const { error } = examSchemaValidation.validate(data);

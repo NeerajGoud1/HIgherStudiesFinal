@@ -5,26 +5,21 @@ import higherStudiesRoutes from "./routes/higherStudiesRoutes.js";
 import cors from "cors";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
 const server = createServer(app);
 
-// CORS configuration
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "http://localhost:5174",
-      "http://localhost:5175",
-    ],
-    credentials: true,
+    origin: "*",
   })
 );
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true })); //for parsing post request
+app.use(express.urlencoded({ extended: true }));
 
-// User Schema
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
@@ -38,12 +33,10 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", userSchema);
 
-// Test route
 app.get("/api/test", (req, res) => {
   res.json({ message: "Server is running" });
 });
 
-// Register route
 app.post("/api/auth/register", async (req, res) => {
   try {
     const {
@@ -56,17 +49,14 @@ app.post("/api/auth/register", async (req, res) => {
       employee_id,
     } = req.body;
 
-    // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: "User already exists" });
     }
 
-    // Hash password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Create new user
     const user = new User({
       name,
       email,
@@ -87,27 +77,23 @@ app.post("/api/auth/register", async (req, res) => {
   }
 });
 
-// Login route with additional logging
 app.post("/api/auth/login", async (req, res) => {
   console.log("Login request received:", req.body);
   try {
     const { email, password, userType } = req.body;
 
-    // Check if user exists
     const user = await User.findOne({ email });
     if (!user) {
       console.log("User not found:", email);
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    // Validate password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       console.log("Invalid password for user:", email);
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    // Create JWT token
     const token = jwt.sign(
       { id: user._id, userType: user.userType },
       "your_jwt_secret",
@@ -126,7 +112,6 @@ app.post("/api/auth/login", async (req, res) => {
   }
 });
 
-// Create a test account route
 app.post("/api/create-test-account", async (req, res) => {
   try {
     const { userType = "student" } = req.body;
@@ -153,17 +138,14 @@ app.post("/api/create-test-account", async (req, res) => {
       };
     }
 
-    // Check if test user already exists
     const existingUser = await User.findOne({ email: testUser.email });
     if (existingUser) {
       return res.json({ message: "Test account already exists" });
     }
 
-    // Hash password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(testUser.password, salt);
 
-    // Create new user
     const user = new User({
       ...testUser,
       password: hashedPassword,
@@ -185,9 +167,7 @@ app.use((err, req, res, next) => {
 });
 
 const start = async () => {
-  await mongoose.connect(
-    "mongodb+srv://neeraj:neeraj@higherstudiesfp.qfkw1bh.mongodb.net/"
-  );
+  await mongoose.connect(process.env.MONGO_URL);
 
   console.log("connected to DB");
   server.listen("5000", () => {
