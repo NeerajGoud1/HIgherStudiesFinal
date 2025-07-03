@@ -1,6 +1,6 @@
 import { Higherstudies } from "../models/higherStudiesSchema.js";
 import httpStatus from "http-status";
-import { ExamSchema } from "../models/ExamSchema.js";
+import { ExamSchema } from "../models/examSchema.js";
 import {
   examSchemaValidation,
   higherStudiesValidation,
